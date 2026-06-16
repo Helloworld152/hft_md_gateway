@@ -1,0 +1,11 @@
+# Build outputs
+/build/
+/cmake-build-*/
+
+bin/
+.cache/
+data/
+log*/
+*.md
+*.pdf
+*.sh

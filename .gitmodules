@@ -1,0 +1,6 @@
+[submodule "third_party/hft-common"]
+	path = third_party/hft-common
+	url = https://github.com/Helloworld152/hft-common.git
+[submodule "third_party/yaml-cpp"]
+	path = third_party/yaml-cpp
+	url = https://github.com/jbeder/yaml-cpp.git

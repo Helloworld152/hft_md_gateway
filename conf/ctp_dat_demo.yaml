@@ -1,0 +1,16 @@
+source:
+  md_front: tcp://182.254.243.31:30011
+  broker_id: "9999"
+  user_id: ""
+  password: ""
+  trading_day: "20260612"
+  queue_capacity: 65536
+  symbols:
+    - rb2610
+    - au2610
+
+publisher:
+  trading_day: "20260612"
+  initial_capacity: 65536
+  output_path: "/home/ruanying/hft_md_gateway/data"
+  file_suffix: "_ctp"
