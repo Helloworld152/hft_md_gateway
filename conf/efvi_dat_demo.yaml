@@ -1,0 +1,15 @@
+source:
+  interface: "eth0"
+  bind_ip: "224.0.0.1"
+  ports:
+    - 5000
+    - 5001
+  trading_day: "20260626"
+  evq_capacity: 1024
+  evq_timeout_us: 100
+
+publisher:
+  trading_day: "20260626"
+  initial_capacity: 65536
+  output_path: "/home/ruanying/hft_md_gateway/data"
+  file_suffix: "_efvi"

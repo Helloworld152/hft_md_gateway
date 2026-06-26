@@ -17,7 +17,7 @@ target_include_directories(md_gateway INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/hft-common/include
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/ctp/include
 )
-target_link_libraries(md_gateway INTERFACE yaml-cpp pthread ${PCAP_LIBRARY})
+target_link_libraries(md_gateway INTERFACE yaml-cpp pthread)
 
 add_executable(ctp_md_demo src/app/ctp_dat_demo.cpp)
 target_link_directories(ctp_md_demo PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/third_party/ctp/lib)
@@ -29,9 +29,16 @@ set_target_properties(ctp_md_demo PROPERTIES
 )
 
 add_executable(pcap_md_demo src/app/pcap_dat_demo.cpp)
-target_link_libraries(pcap_md_demo PRIVATE md_gateway)
+target_link_libraries(pcap_md_demo PRIVATE md_gateway ${PCAP_LIBRARY})
 set_target_properties(pcap_md_demo PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
 add_executable(pcap_live_demo src/app/pcap_live_demo.cpp)
-target_link_libraries(pcap_live_demo PRIVATE md_gateway)
+target_link_libraries(pcap_live_demo PRIVATE md_gateway ${PCAP_LIBRARY})
 set_target_properties(pcap_live_demo PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+
+find_library(EFVI_LIBRARY ciul)
+if(EFVI_LIBRARY)
+    add_executable(efvi_md_demo src/app/efvi_dat_demo.cpp)
+    target_link_libraries(efvi_md_demo PRIVATE md_gateway ${EFVI_LIBRARY})
+    set_target_properties(efvi_md_demo PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+endif()
