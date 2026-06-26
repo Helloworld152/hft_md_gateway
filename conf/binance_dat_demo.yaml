@@ -1,0 +1,16 @@
+source:
+  trading_day: "20260616"
+  queue_capacity: 65536
+  proxy: ""
+  depth_options: "MARKET_DEPTH_MAX=5&CONFLATE_INTERVAL_MILLISECONDS=1000"
+  symbols:
+    - BTCUSDT
+    - ETHUSDT
+    - BTCUSDT_PERP
+    - ETHUSDT_PERP
+
+publisher:
+  trading_day: "20260616"
+  initial_capacity: 65536
+  output_path: "/home/ruanying/hft_md_gateway/data"
+  file_suffix: "_binance"

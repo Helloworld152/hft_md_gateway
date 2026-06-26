@@ -1,0 +1,12 @@
+source:
+  pcap_file: "/path/to/market_data.pcap"
+  bpf_filter: "udp"
+  repeat: true
+  trading_day: "20260626"
+  queue_capacity: 65536
+
+publisher:
+  trading_day: "20260626"
+  initial_capacity: 65536
+  output_path: "/home/ruanying/hft_md_gateway/data"
+  file_suffix: "_pcap"

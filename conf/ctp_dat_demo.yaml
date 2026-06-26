@@ -3,14 +3,14 @@ source:
   broker_id: "9999"
   user_id: ""
   password: ""
-  trading_day: "20260612"
+  trading_day: "20260617"
   queue_capacity: 65536
   symbols:
     - rb2610
     - au2610
 
 publisher:
-  trading_day: "20260612"
+  trading_day: "20260617"
   initial_capacity: 65536
   output_path: "/home/ruanying/hft_md_gateway/data"
   file_suffix: "_ctp"
