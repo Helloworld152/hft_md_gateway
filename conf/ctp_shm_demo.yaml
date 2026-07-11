@@ -1,0 +1,11 @@
+source:
+  md_front: tcp://182.254.243.31:40011
+  broker_id: "9999"
+  queue_capacity: 65536
+  symbols:
+    - rb2610
+    - au2610
+
+publisher:
+  shm_name: "CTP_MD"
+  capacity: 65536

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <atomic>
+#include <chrono>
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
@@ -97,6 +98,10 @@ class CtpApiSource {
             if (!running || pData == nullptr) return;
             CtpRawTick raw {};
             raw.data = *pData;
+            raw.local_ts = static_cast<uint64_t>(
+                std::chrono::duration_cast<std::chrono::microseconds>(
+                    std::chrono::system_clock::now().time_since_epoch())
+                    .count());
             if (!queue.push(raw))
                 std::cerr << "[CtpApiSource] queue full, dropping raw tick for "
                           << pData->InstrumentID << std::endl;

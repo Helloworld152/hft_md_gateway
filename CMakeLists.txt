@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.16)
 project(hft_md_gateway CXX)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -27,6 +29,19 @@ set_target_properties(ctp_md_demo PROPERTIES
     BUILD_RPATH "${CMAKE_CURRENT_SOURCE_DIR}/third_party/ctp/lib"
     INSTALL_RPATH "${CMAKE_CURRENT_SOURCE_DIR}/third_party/ctp/lib"
 )
+
+add_executable(ctp_shm_demo src/app/ctp_shm_demo.cpp)
+target_link_directories(ctp_shm_demo PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/third_party/ctp/lib)
+target_link_libraries(ctp_shm_demo PRIVATE md_gateway thostmduserapi_se)
+set_target_properties(ctp_shm_demo PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin
+    BUILD_RPATH "${CMAKE_CURRENT_SOURCE_DIR}/third_party/ctp/lib"
+    INSTALL_RPATH "${CMAKE_CURRENT_SOURCE_DIR}/third_party/ctp/lib"
+)
+
+add_executable(shm_tick_reader tools/shm_tick_reader.cpp)
+target_link_libraries(shm_tick_reader PRIVATE md_gateway)
+set_target_properties(shm_tick_reader PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
 add_executable(pcap_md_demo src/app/pcap_dat_demo.cpp)
 target_link_libraries(pcap_md_demo PRIVATE md_gateway ${PCAP_LIBRARY})
