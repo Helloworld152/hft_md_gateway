@@ -6,6 +6,5 @@ bin/
 .cache/
 data/
 log*/
-*.md
 *.pdf
 *.sh
