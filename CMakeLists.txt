@@ -43,6 +43,18 @@ add_executable(shm_tick_reader tools/shm_tick_reader.cpp)
 target_link_libraries(shm_tick_reader PRIVATE md_gateway)
 set_target_properties(shm_tick_reader PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
+add_executable(ctp_shm_tick_reader tools/ctp_shm_tick_reader.cpp)
+target_link_libraries(ctp_shm_tick_reader PRIVATE md_gateway)
+set_target_properties(ctp_shm_tick_reader PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+
+add_executable(ctp_shm_tick_latest5_csv tools/ctp_shm_tick_latest5_csv.cpp)
+target_link_libraries(ctp_shm_tick_latest5_csv PRIVATE md_gateway)
+set_target_properties(ctp_shm_tick_latest5_csv PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+
+add_executable(ctp_shm_settlement_summary tools/ctp_shm_settlement_summary.cpp)
+target_link_libraries(ctp_shm_settlement_summary PRIVATE md_gateway)
+set_target_properties(ctp_shm_settlement_summary PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+
 add_executable(pcap_md_demo src/app/pcap_dat_demo.cpp)
 target_link_libraries(pcap_md_demo PRIVATE md_gateway ${PCAP_LIBRARY})
 set_target_properties(pcap_md_demo PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)

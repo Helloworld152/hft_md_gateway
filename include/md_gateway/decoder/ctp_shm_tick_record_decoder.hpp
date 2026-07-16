@@ -7,14 +7,14 @@
 
 #include <yaml-cpp/yaml.h>
 
-#include "hft_common/protocol/protocol.h"
 #include "md_gateway/model/ctp_raw_tick.hpp"
+#include "md_gateway/model/ctp_shm_tick_record.hpp"
 
 namespace md_gateway {
 
-class CtpTickRecordDecoder {
+class CtpShmTickRecordDecoder {
 public:
-    using output_type = TickRecord;
+    using output_type = CtpShmTickRecord;
 
     struct Config {
         uint32_t trading_day {0};
@@ -26,7 +26,7 @@ public:
         return true;
     }
 
-    bool decode(const CtpRawTick& in, TickRecord& out) const noexcept {
+    bool decode(const CtpRawTick& in, CtpShmTickRecord& out) const noexcept {
         const auto& data = in.data;
 
         int hh = 0;
@@ -55,6 +55,8 @@ public:
         assign_valid_price(data.HighestPrice, out.highest_price);
         assign_valid_price(data.LowestPrice, out.lowest_price);
         assign_valid_price(data.PreClosePrice, out.pre_close_price);
+        assign_valid_price(data.PreSettlementPrice, out.pre_settlement_price);
+        out.settlement_price_valid = assign_optional_price(data.SettlementPrice, out.settlement_price) ? 1 : 0;
 
         assign_valid_price(data.BidPrice1, out.bid_price[0]);
         out.bid_volume[0] = data.BidVolume1;
@@ -91,10 +93,18 @@ private:
         }
     }
 
+    static bool assign_optional_price(double src, double& dst) noexcept {
+        if (src > -1e300 && src < 1e300) {
+            dst = src;
+            return true;
+        }
+        return false;
+    }
+
     Config config_ {};
 };
 
-inline bool load_component_config(const std::string& config_path, CtpTickRecordDecoder::Config& config) {
+inline bool load_component_config(const std::string& config_path, CtpShmTickRecordDecoder::Config& config) {
     YAML::Node doc = YAML::LoadFile(config_path);
     YAML::Node source = doc["source"] ? doc["source"] : doc;
 
