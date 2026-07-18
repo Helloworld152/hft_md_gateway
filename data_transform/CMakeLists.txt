@@ -1,0 +1,7 @@
+add_executable(shm2mcast_sender shm2mcast_sender.cpp)
+target_link_libraries(shm2mcast_sender PRIVATE md_gateway)
+set_target_properties(shm2mcast_sender PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+
+add_executable(shm2mcast_receiver shm2mcast_receiver.cpp)
+target_link_libraries(shm2mcast_receiver PRIVATE md_gateway)
+set_target_properties(shm2mcast_receiver PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
