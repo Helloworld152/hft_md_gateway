@@ -7,34 +7,35 @@
 
 #include "hft_common/ipc/shm_constants.h"
 #include "hft_common/ipc/shm_ring_buffer.h"
-#include "md_gateway/model/ctp_shm_tick_record.hpp"
+#include "hft_common/protocol/protocol.h"
 
 namespace md_gateway {
 
-struct CtpShmTickPublisherConfig {
+struct ShmPublisherConfig {
     std::string shm_name;
     uint64_t capacity {hft_common::ipc::kDefaultShmRingCapacity};
 };
 
-class CtpShmTickPublisher {
+template <typename T>
+class ShmPublisher {
 public:
-    using config_type = CtpShmTickPublisherConfig;
+    using config_type = ShmPublisherConfig;
 
-    bool init(const CtpShmTickPublisherConfig& config) {
+    bool init(const ShmPublisherConfig& config) {
         if (config.shm_name.empty() || config.capacity == 0) {
             return false;
         }
         config_ = config;
-        writer_ = std::make_unique<hft_common::ipc::ShmRingBuffer<CtpShmTickRecord>>(
+        writer_ = std::make_unique<hft_common::ipc::ShmRingBuffer<T>>(
             config.shm_name, true, config.capacity);
         return true;
     }
 
-    void publish(const CtpShmTickRecord& tick) {
+    void publish(const T& tick) {
         if (!writer_) {
             return;
         }
-        CtpShmTickRecord* slot = writer_->claim();
+        T* slot = writer_->claim();
         if (!slot) {
             return;
         }
@@ -43,11 +44,11 @@ public:
     }
 
 private:
-    CtpShmTickPublisherConfig config_ {};
-    std::unique_ptr<hft_common::ipc::ShmRingBuffer<CtpShmTickRecord>> writer_;
+    ShmPublisherConfig config_ {};
+    std::unique_ptr<hft_common::ipc::ShmRingBuffer<T>> writer_;
 };
 
-inline bool load_component_config(const std::string& config_path, CtpShmTickPublisherConfig& config) {
+inline bool load_component_config(const std::string& config_path, ShmPublisherConfig& config) {
     YAML::Node doc = YAML::LoadFile(config_path);
     YAML::Node publisher = doc["publisher"] ? doc["publisher"] : doc;
 

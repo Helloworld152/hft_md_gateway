@@ -4,8 +4,9 @@
 #include <thread>
 
 #include "md_gateway/decoder/ctp_shm_tick_record_decoder.hpp"
+#include "md_gateway/model/ctp_shm_tick_record.hpp"
 #include "md_gateway/pipeline/market_data_pipeline.hpp"
-#include "md_gateway/publisher/ctp_shm_tick_publisher.hpp"
+#include "md_gateway/publisher/shm_publisher.hpp"
 #include "md_gateway/source/ctp_api_source.hpp"
 
 int main(int argc, char** argv) {
@@ -19,10 +20,10 @@ int main(int argc, char** argv) {
     md_gateway::MarketDataPipeline<
         md_gateway::CtpApiSource,
         md_gateway::CtpShmTickRecordDecoder,
-        md_gateway::CtpShmTickPublisher>
+        md_gateway::ShmPublisher<md_gateway::CtpShmTickRecord>>
         pipeline(md_gateway::CtpApiSource{},
                  md_gateway::CtpShmTickRecordDecoder{},
-                 md_gateway::CtpShmTickPublisher{});
+                 md_gateway::ShmPublisher<md_gateway::CtpShmTickRecord>{});
 
     if (!pipeline.init(config_path)) {
         std::cerr << "failed to init pipeline" << std::endl;
