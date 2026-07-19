@@ -5,6 +5,15 @@ source:
   symbols:
     - rb2610
     - au2610
+    - ag2610
+    - cu2610
+    - al2610
+    - zn2610
+    - ni2610
+    - sn2610
+    - i2610
+    - j2610
+    - jm2610
 
 publisher:
   shm_name: "CTP_MD"
