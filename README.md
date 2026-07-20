@@ -41,7 +41,7 @@ cmake --build build -j
 如果使用共享内存发布，可用下面的工具查看输出：
 
 ```bash
-./bin/shm_tick_reader CTP_MD
+./bin/shm_reader --shm CTP_MD
 ```
 
 ## 配置说明

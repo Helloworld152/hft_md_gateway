@@ -18,7 +18,7 @@
 namespace {
 
 void print_usage() {
-    std::cerr << "usage: ctp_shm_reader --shm <shm_name> [--start <seq>]" << std::endl;
+    std::cerr << "usage: shm_reader --shm <shm_name> [--start <seq>]" << std::endl;
 }
 
 bool parse_uint64(const char* text, uint64_t& value) {
@@ -160,7 +160,7 @@ int main(int argc, char** argv) {
             }
         }
     } catch (const std::exception& ex) {
-        std::cerr << "ctp_shm_reader failed: " << ex.what() << std::endl;
+        std::cerr << "shm_reader failed: " << ex.what() << std::endl;
         return 1;
     }
 }

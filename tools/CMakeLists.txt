@@ -1,10 +1,6 @@
-add_executable(shm_tick_reader shm_tick_reader.cpp)
-target_link_libraries(shm_tick_reader PRIVATE md_gateway)
-set_target_properties(shm_tick_reader PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${HFT_BIN_DIR})
-
-add_executable(ctp_shm_reader ctp_shm_reader.cpp)
-target_link_libraries(ctp_shm_reader PRIVATE md_gateway)
-set_target_properties(ctp_shm_reader PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${HFT_BIN_DIR})
+add_executable(shm_reader shm_reader.cpp)
+target_link_libraries(shm_reader PRIVATE md_gateway)
+set_target_properties(shm_reader PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${HFT_BIN_DIR})
 
 add_executable(ctp_shm_tick_latest5_csv ctp_shm_tick_latest5_csv.cpp)
 target_link_libraries(ctp_shm_tick_latest5_csv PRIVATE md_gateway)
